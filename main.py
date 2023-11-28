@@ -33,45 +33,13 @@ for n in range(len(data["Names"])):
     text = """\
         Hello """ + data["Names"][n].split()[0] + """"!
     
-        You are assigned """ + assigned[n] + """ for the DA Nons Secret Santa! 
-    
-        Reminder that there is a spending limit of $20!
-    
-        In case of...
-        - an assignee you REALLY don't think you can give a good gift to
-        - something stopping you from delivering/getting a gift (including not wanting to participate)
-        - etc
-        ...reach out to Ryan!
-    
-        Thank you so much for participating and have fun!
+        You are assigned """ + assigned[n] + """ for the Secret Santa! 
         """
-    html = """\
-        <html>
-          <body>
-            <p>Hello """ + data["Names"][n].split()[0] + """!<br>
-            <br>
-                You are Assigned <strong>""" + assigned[n] + """</strong> for the DA Nons Secret Santa!  
-                <br> 
-                <br>
-                Reminder that there is a <strong>spending limit of $20!</strong>
-                <br>
-                <br>
-                In case of...
-            </p>
-            <ul>
-                <li>an assignee you REALLY don't think you can give a good gift to</li>
-                <li>something stopping you from delivering/getting a gift (including not wanting to participate)</li>
-                <li>etc</li>
-            </ul>
-            <p>
-                ...reach out to Ryan!
-                <br>
-                <br>
-                Thank you so much for participating and have fun!
-            </p>
-          </body>
-        </html>
-        """
+    with open('message.html', 'r') as f:
+        html = f.read()
+
+    html = html.replace("SUBJECT-FIRSTNAME", data["Names"][n].split()[0])
+    html = html.replace("ASSIGNED-FULLNAME", assigned[n])
 
     # Turn these into plain/html MIMEText objects
     part1 = MIMEText(text, "plain")
@@ -84,9 +52,9 @@ for n in range(len(data["Names"])):
 
     context = ssl.create_default_context()
 
-    #with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-     #   smtp.login(email_sender, email_password)
-      #  smtp.sendmail(email_sender, data["Emails"][n], em.as_string())
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+       smtp.login(email_sender, email_password)
+       smtp.sendmail(email_sender, data["Emails"][n] , em.as_string())
 
 with open('assignees.txt', 'w') as fp:
     for a in range(len(assigned)):
