@@ -43,14 +43,11 @@ for n in range(len(data["Names"])):
     random_float = random.uniform(1.0, 3.0)
     time.sleep(random_float)
 
-    # adds assignment array value
-    assigned.append(data["Target"][n])
-
     # Random Shuffle n+1 implementation
-    # if n == len(data["Names"]) - 1:
-    #     assigned.append(data["Names"][0])
-    # else:
-    #     assigned.append(data["Names"][n + 1])
+    if n == len(data["Names"]) - 1:
+        assigned.append(data["Names"][0])
+    else:
+        assigned.append(data["Names"][n + 1])
 
     # alternative email (not HTML)
     em = MIMEMultipart("alternative")
@@ -86,9 +83,10 @@ for n in range(len(data["Names"])):
     context = ssl.create_default_context()
 
     # sends emails
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-       smtp.login(SENDING_EMAIL_ADDRESS, EMAIL_KEY)
-       smtp.sendmail(SENDING_EMAIL_ADDRESS, data["Emails"][n], em.as_string())
+    with smtplib.SMTP('smtp.office365.com', 587) as smtp:
+        smtp.starttls(context=ssl.create_default_context())
+        smtp.login(SENDING_EMAIL_ADDRESS, EMAIL_KEY)
+        smtp.sendmail(SENDING_EMAIL_ADDRESS, data["Emails"][n], em.as_string())
 
 with open('assignees.txt', 'w') as fp:
     for a in range(len(assigned)):
