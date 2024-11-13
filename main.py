@@ -17,11 +17,11 @@ load_dotenv(dotenv_path)
 # should have 'names', 'emails', and potentially 'target' values
 data = pd.read_csv('participants.csv')
 
-# gets enviroment variables
+# gets environment variables
 EMAIL_KEY = os.environ.get("EMAIL_KEY")
 SENDING_EMAIL_ADDRESS = os.environ.get("SENDING_EMAIL_ADDRESS")
 
-# For Randomly Shuffling List (allows n+1 implementation)
+# For Randomly Shuffling List (allows for n+1 implementation)
 
 # combined = list(zip(data["Names"], data["Emails"]))
 # random.shuffle(combined)
@@ -63,6 +63,8 @@ for n in range(len(data["Names"])):
     
         You are assigned """ + assigned[n] + """ for the Secret Santa! 
         """
+
+    # gets HTML message from files
     with open('senior_tag.html', 'r') as f:
         html = f.read()
 
