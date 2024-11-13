@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <p>Hello SUBJECT-FIRSTNAME!
+            <br>
+            <br>
+            This is an example document
+            <br>
+            <br>
+            This acts just like HTML. You can <strong>use tags like these</strong>
+            <br>
+            <br>
+            If you want a list
+            </p>
+            <ul>
+                <li>You can</li>
+                <li>do it</li>
+                <li>this way</li>
+            </ul>
+            <p>With HTML, you have full control!</p>
+    </body>
+</html>
