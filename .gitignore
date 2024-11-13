@@ -1,6 +1,10 @@
-.idea
 participants.csv
 assignees.txt
 .env
 message.html
 senior_tag.html
+
+.idea
+misc.xml
+SecretSanta.iml
+vcs.xml
